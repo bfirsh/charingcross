@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{ repo.full_name }}{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">{{ repo.full_name }}</h1>
+  <table class="table milestone-table">
+    <thead>
+      <tr>
+        <th>Milestone</th>
+        <th>Item</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for milestone in milestones %}
+        {% for issue in milestone.issues %}
+          <tr>
+            {% if forloop.first %}
+              <th rowspan="{{ milestone.issues|length }}">
+                <p>{{ milestone.title }}{% if milestone.due_on%} ({{ milestone.due_on|date:"F j, Y" }}){% endif %}</p>
+                {% if milestone.description %}<p><small>{{ milestone.description }}</small></p>{% endif %}
+              </th>
+            {% endif %}
+            <td><a href="{{ issue.html_url }}" target="_blank">{{ issue.title }}</a></td>
+            {% if issue.extended_state == "closed" %}
+              <td class="bg-success">Done</td>
+            {% elif issue.extended_state == "in-progress" %}
+              <td class="bg-warning">In progress</td>
+            {% else %}
+              <td>Unstarted</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tr>
+  </table>
+{% endblock %}

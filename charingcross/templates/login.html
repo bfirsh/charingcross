@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <a href="{% url 'social:begin' 'github-org' %}?next={{ request.path }}">Login with GitHub</a>
+{% endblock %}

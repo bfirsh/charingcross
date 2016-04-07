@@ -1,0 +1,12 @@
+db:
+  image: postgres
+web:
+  image: docker/charingcross
+  ports:
+    - "80:8000"
+  links:
+    - db
+  environment:
+    - SECRET_KEY
+    - GITHUB_KEY
+    - GITHUB_SECRET

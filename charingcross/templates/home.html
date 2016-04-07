@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">Repositories</h1>
+  <ul>
+    {% for repo in repos %}
+      <li><a href="{% url "repo" repo.full_name %}">{{ repo.full_name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
