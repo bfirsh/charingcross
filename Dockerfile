@@ -5,4 +5,4 @@ WORKDIR /code
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
-CMD gunicorn charingcross.wsgi --log-file -
+CMD gunicorn charingcross.wsgi -b 0.0.0.0:8000 --log-file -
