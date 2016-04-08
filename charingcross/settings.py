@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import environ
+import requests
 env = environ.Env(
     DEBUG=(bool, False),
+    ENABLE_SSL=(bool, False),
     ALLOWED_HOSTS=(list, []),
 )
 
@@ -167,3 +169,10 @@ LOGGING = {
         },
     },
 }
+
+ENABLE_SSL = env('ENABLE_SSL')
+SESSION_COOKIE_SECURE = ENABLE_SSL
+CSRF_COOKIE_SECURE = ENABLE_SSL
+SECURE_SSL_REDIRECT = ENABLE_SSL
+if ENABLE_SSL:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
