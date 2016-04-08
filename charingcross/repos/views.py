@@ -8,7 +8,7 @@ class RepoView(TemplateView):
         context = super(RepoView, self).get_context_data(**kwargs)
         gh = github_from_request(self.request)
         repo = gh.get_repo(kwargs['full_name'])
-        milestones = repo.get_milestones()
+        milestones = repo.get_milestones(state='all')
         issues = repo.get_issues(
             labels=[repo.get_label('kind/roadmap')],
             state='all'
