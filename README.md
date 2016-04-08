@@ -2,6 +2,8 @@
 
 Project planning with GitHub issues.
 
+![screenshot](screenshot.png)
+
 ## Running in development
 
     $ docker-compose up
