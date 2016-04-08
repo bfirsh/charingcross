@@ -7,3 +7,4 @@ django-environ==0.4.0
 gunicorn==19.4.5
 whitenoise==3.0
 requests==2.9.1
+eventlet==0.18.4
