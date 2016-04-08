@@ -1,3 +1,8 @@
 .milestone-table small {
   font-weight: normal;
 }
+
+.login-with-github {
+  text-align: center;
+  margin-top: 50%;
+}

@@ -2,5 +2,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <a href="{% url 'social:begin' 'github-org' %}?next={{ request.path }}">Login with GitHub</a>
+  <div class="login-with-github">
+    <a href="{% url 'social:begin' 'github-org' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="btn btn-primary btn-lg">Login with GitHub</a>
+  </div>
 {% endblock %}
