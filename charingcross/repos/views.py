@@ -5,7 +5,10 @@ IN_PROGRESS="status/in-progress"
 AT_RISK="status/at-risk"
 DELAYED="status/delayed"
 POSTPONED="status/postponed"
-
+PRIORITY_P1 = "priority/P1"
+PRIORITY_P2 = "priority/P2"
+PRIORITY_P3 = "priority/P3"
+PRIORITY_UNKNOWN = "priority/unknown"
 
 class RepoView(TemplateView):
     template_name = "repo.html"
@@ -33,6 +36,18 @@ class RepoView(TemplateView):
                 issue.extended_state = "postponed"
             else:
                 issue.extended_state = "open"
+        
+        for issue in issues:
+            if filter(lambda l: l.name == PRIORITY_P1, issue.labels):
+                issue.priority = "P1"
+            elif filter(lambda l: l.name == PRIORITY_P2, issue.labels):
+                issue.priority = "P2"
+            elif filter(lambda l: l.name == PRIORITY_P3, issue.labels):
+                issue.priority = "P3"
+            elif filter(lambda l: l.name == PRIORITY_UNKNOWN, issue.labels):
+                issue.priority = "Needs Discussion"
+            else:
+                issue.priority = "Unassigned"
 
         for milestone in milestones:
             milestone.issues = filter(lambda i: i.milestone == milestone, issues)
