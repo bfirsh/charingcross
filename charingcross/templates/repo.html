@@ -25,7 +25,13 @@
             {% if issue.extended_state == "closed" %}
               <td class="bg-success">Done</td>
             {% elif issue.extended_state == "in-progress" %}
-              <td class="bg-warning">In progress</td>
+              <td class="bg-info">In Progress</td>
+            {% elif issue.extended_state == "at-risk" %}
+              <td class="bg-warning">At Risk</td>
+            {% elif issue.extended_state == "delayed" %}
+              <td class="bg-danger">Delayed</td>
+            {% elif issue.extended_state == "postponed" %}
+              <td class="bg-danger">Postponed</td>
             {% else %}
               <td>Unstarted</td>
             {% endif %}
