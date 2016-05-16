@@ -7,7 +7,8 @@
     <thead>
       <tr>
         <th>Milestone</th>
-        <th>Item</th>
+	<th>Item</th>
+	<th>Priority</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -21,11 +22,18 @@
                 {% if milestone.description %}<p><small>{{ milestone.description }}</small></p>{% endif %}
               </th>
             {% endif %}
-            <td><a href="{{ issue.html_url }}" target="_blank">{{ issue.title }}</a></td>
+	    <td><a href="{{ issue.html_url }}" target="_blank">{{ issue.title }}</a></td>
+	    <td><strong>{{ issue.priority }}</strong></td>
             {% if issue.extended_state == "closed" %}
               <td class="bg-success">Done</td>
             {% elif issue.extended_state == "in-progress" %}
-              <td class="bg-warning">In progress</td>
+              <td class="bg-info">In Progress</td>
+            {% elif issue.extended_state == "at-risk" %}
+              <td class="bg-warning">At Risk</td>
+            {% elif issue.extended_state == "delayed" %}
+              <td class="bg-danger">Delayed</td>
+            {% elif issue.extended_state == "postponed" %}
+              <td class="bg-danger">Postponed</td>
             {% else %}
               <td>Unstarted</td>
             {% endif %}
