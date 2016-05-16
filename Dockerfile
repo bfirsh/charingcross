@@ -1,5 +1,6 @@
 FROM python:2.7
 ENV PYTHONUNBUFFERED 1
+RUN apt-get update -qq && apt-get install -qy netcat
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
