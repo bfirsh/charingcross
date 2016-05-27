@@ -3,43 +3,57 @@
 
 {% block content %}
   <h1 class="page-header">{{ repo.full_name }}</h1>
-  <table class="table milestone-table">
-    <thead>
-      <tr>
-        <th>Milestone</th>
-	<th>Item</th>
-	<th>Priority</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for milestone in milestones %}
-        {% for issue in milestone.issues %}
-          <tr>
-            {% if forloop.first %}
-              <th rowspan="{{ milestone.issues|length }}">
-                <p>{{ milestone.title }}{% if milestone.due_on%} ({{ milestone.due_on|date:"F j, Y" }}){% endif %}</p>
-                {% if milestone.description %}<p><small>{{ milestone.description }}</small></p>{% endif %}
-              </th>
-            {% endif %}
-	    <td><a href="{{ issue.html_url }}" target="_blank">{{ issue.title }}</a></td>
-	    <td><strong>{{ issue.priority }}</strong></td>
-            {% if issue.extended_state == "closed" %}
-              <td class="bg-success">Done</td>
-            {% elif issue.extended_state == "in-progress" %}
-              <td class="bg-info">In Progress</td>
-            {% elif issue.extended_state == "at-risk" %}
-              <td class="bg-warning">At Risk</td>
-            {% elif issue.extended_state == "delayed" %}
-              <td class="bg-danger">Delayed</td>
-            {% elif issue.extended_state == "postponed" %}
-              <td class="bg-danger">Postponed</td>
-            {% else %}
-              <td>Unstarted</td>
-            {% endif %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a data-toggle="collapse" href="#collapse-open">Open Milestones</a>
+    </div>
+    <div id="collapse-open" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <table class="table milestone-table">
+          <thead>
+            <tr>
+              <th>Milestone</th>
+              <th>Item</th>
+              <th>Priority</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for milestone in milestones %}
+              {% if milestone.state == "open" %}
+                {% include table.html %}
+              {%endif%}
+            {% endfor %}
           </tr>
-        {% endfor %}
-      {% endfor %}
-    </tr>
-  </table>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a data-toggle="collapse" href="#collapse-closed">Closed Milestones</a>
+    </div>
+    <div id="collapse-closed" class="panel-collapse collapse">
+      <div class="panel-body">
+       <table class="table milestone-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <th>Item</th>
+            <th>Priority</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for milestone in milestones %}
+            {% if milestone.state == "closed" %}
+              {% include table.html %}
+            {%endif%}
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+  </div>
 {% endblock %}
