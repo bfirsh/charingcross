@@ -25,7 +25,9 @@ services:
 
 Then run:
 
-    $ docker-compose up
+    $ docker-compose up db -b
+    $ docker-compose run web python manage.py migrate
+    $ docker-compose up -d 
 
 ## Running in production
 
